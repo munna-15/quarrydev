@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
 import { Inter, Manrope } from "next/font/google";
+
 import "./globals.css";
+import PageTransition from "@/components/layout/PageTransition";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,8 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${inter.variable} ${manrope.variable}`}>
+        <PageTransition />
         {children}
       </body>
     </html>

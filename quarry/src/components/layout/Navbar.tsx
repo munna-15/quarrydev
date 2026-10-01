@@ -1,9 +1,11 @@
+
 "use client";
 
 import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   {
@@ -29,6 +31,8 @@ const navItems = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -88,7 +92,7 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
       observer?.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -97,6 +101,79 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  const startPageTransition = (href: string) => {
+    window.dispatchEvent(
+      new CustomEvent("quarry-page-transition", {
+        detail: { href },
+      }),
+    );
+
+    window.setTimeout(() => {
+      window.location.href = href;
+    }, 600);
+  };
+
+  const handleNavigation = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (pathname === href) {
+      event.preventDefault();
+      setMenuOpen(false);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    event.preventDefault();
+    setMenuOpen(false);
+    startPageTransition(href);
+  };
+
+  const handleLogoClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (pathname === "/") {
+      event.preventDefault();
+      setMenuOpen(false);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    event.preventDefault();
+    setMenuOpen(false);
+    startPageTransition("/");
+  };
+
+  const handleStartProject = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (pathname === "/contact") {
+      event.preventDefault();
+      setMenuOpen(false);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    event.preventDefault();
+    setMenuOpen(false);
+    startPageTransition("/contact");
+  };
 
   return (
     <>
@@ -118,6 +195,7 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-[1800px] items-center justify-between px-5 pt-6 sm:px-8 sm:pt-7 lg:px-10 lg:pt-8">
           <Link
             href="/"
+            onClick={handleLogoClick}
             className="pointer-events-auto font-[var(--font-manrope)] text-[26px] font-extrabold leading-none tracking-[-0.075em] text-white transition-opacity duration-300 hover:opacity-70 sm:text-[29px]"
           >
             QUARRY
@@ -127,17 +205,23 @@ export default function Navbar() {
             <nav className="pointer-events-auto flex items-center gap-9">
               {navItems.map((item) => {
                 const isActive =
-                  item.section !== null && activeSection === item.section;
+                  item.section !== null &&
+                  activeSection === item.section;
 
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
+                    onClick={(event) =>
+                      handleNavigation(event, item.href)
+                    }
                     className="group relative flex items-center gap-2 py-2 text-[11px] font-medium uppercase tracking-[0.12em] text-white/60 transition-colors duration-300 hover:text-white"
                   >
                     <span
                       className={`h-1 w-1 rounded-full bg-white transition-all duration-300 ${
-                        isActive ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                        isActive
+                          ? "scale-100 opacity-100"
+                          : "scale-0 opacity-0"
                       }`}
                     />
 
@@ -151,6 +235,7 @@ export default function Navbar() {
 
             <Link
               href="/contact"
+              onClick={handleStartProject}
               className="pointer-events-auto group flex items-center gap-3 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-white"
             >
               <span className="transition-opacity duration-300 group-hover:opacity-60">
@@ -169,7 +254,9 @@ export default function Navbar() {
 
           <button
             type="button"
-            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-label={
+              menuOpen ? "Close navigation" : "Open navigation"
+            }
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
             className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-black lg:hidden"
@@ -271,7 +358,9 @@ export default function Navbar() {
                   >
                     <Link
                       href={item.href}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={(event) =>
+                        handleNavigation(event, item.href)
+                      }
                       className="group flex items-center justify-between border-b border-white/10 py-5"
                     >
                       <span className="font-[var(--font-manrope)] text-[clamp(2.5rem,10vw,4.5rem)] font-medium leading-none tracking-[-0.06em] text-white/90 transition-colors duration-300 group-hover:text-white">
@@ -302,7 +391,7 @@ export default function Navbar() {
               >
                 <Link
                   href="/contact"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={handleStartProject}
                   className="flex items-center justify-between border-t border-white/15 pt-5 text-[11px] uppercase tracking-[0.14em] text-white/65"
                 >
                   <span>Start a project</span>
@@ -320,3 +409,4 @@ export default function Navbar() {
     </>
   );
 }
+

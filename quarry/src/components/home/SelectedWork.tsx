@@ -56,7 +56,7 @@ export default function SelectedWork() {
       </div>
 
       <div className="relative z-10 -mt-[100vh]">
-        <header className="mx-auto max-w-[1800px] bg-black px-5 pb-16 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-10">
+        <header className="mx-auto max-w-[1800px] bg-black px-5 pb-6 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:px-10 lg:pb-8 lg:pt-24">
           <span className="mb-4 block text-[10px] font-medium uppercase tracking-[0.25em] text-white/40">
             Selected Work
           </span>
@@ -90,8 +90,8 @@ function Project({
   index: number;
 }) {
   return (
-    <article className="relative min-h-[70vh] bg-black">
-      <div className="mx-auto grid min-h-[70vh] max-w-[1800px] lg:grid-cols-[1.3fr_0.7fr]">
+    <article className="relative min-h-[100vh] bg-black">
+      <div className="mx-auto grid min-h-[100vh] max-w-[1800px] lg:grid-cols-[1.3fr_0.7fr]">
         <motion.div
           initial={{
             opacity: 0,
@@ -109,7 +109,7 @@ function Project({
             duration: 0.7,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="relative min-h-[52vh] overflow-hidden lg:min-h-[90vh]"
+          className="relative min-h-[65vh] overflow-hidden lg:min-h-[100vh]"
         >
           <Image
             src={project.image}
@@ -117,7 +117,7 @@ function Project({
             fill
             priority={index === 0}
             sizes="(max-width: 1024px) 100vw, 65vw"
-            className="object-contain"
+            className="scale-[1.05] object-contain"
           />
         </motion.div>
 
@@ -139,7 +139,7 @@ function Project({
             delay: 0.08,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="flex min-h-[28vh] flex-col justify-center px-7 py-10 sm:px-10 lg:min-h-[70vh] lg:px-12 xl:px-16"
+          className="flex min-h-[35vh] flex-col justify-center px-7 py-12 sm:px-10 lg:min-h-[100vh] lg:px-12 xl:px-16"
         >
           <div className="mb-6 flex items-center gap-3">
             <span className="text-[10px] uppercase tracking-[0.22em] text-white/40">
