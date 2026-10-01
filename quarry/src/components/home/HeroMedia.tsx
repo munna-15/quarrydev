@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -8,7 +9,6 @@ const videos = [
   "/videos/hero-automation.mp4",
   "/videos/hero-aesthetics.mp4",
   "/videos/work-hero-1.mp4",
- 
 ];
 
 export default function HeroMedia() {
@@ -21,13 +21,17 @@ export default function HeroMedia() {
     if (!video) return;
 
     video.currentTime = 0;
+    video.load();
     video.play().catch(() => {});
 
     const timer = window.setTimeout(() => {
       setActiveIndex((current) => (current + 1) % videos.length);
     }, 3000);
 
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.clearTimeout(timer);
+      video.pause();
+    };
   }, [activeIndex]);
 
   return (
@@ -41,7 +45,7 @@ export default function HeroMedia() {
           src={video}
           muted
           playsInline
-          preload="auto"
+          preload={index === activeIndex ? "auto" : "none"}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
             index === activeIndex ? "opacity-100" : "opacity-0"
           }`}
@@ -54,3 +58,4 @@ export default function HeroMedia() {
     </div>
   );
 }
+

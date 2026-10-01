@@ -1,11 +1,13 @@
+
 "use client";
 
 import Navbar from "../layout/Navbar";
 import HeroMedia from "./HeroMedia";
+import { motion } from "motion/react";
 
 export default function HeroIntro() {
   return (
-    <section className="relative h-screen overflow-hidden bg-black">
+    <section className="relative h-[80vh] overflow-hidden bg-black md:h-screen">
       <HeroMedia />
 
       <Navbar />
@@ -23,6 +25,25 @@ export default function HeroIntro() {
               Scroll down
             </span>
           </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-20 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2 md:hidden">
+        <span className="text-[8px] font-medium uppercase tracking-[0.28em] text-white/45">
+          Scroll
+        </span>
+
+        <div className="relative h-9 w-px overflow-hidden bg-white/15">
+          <motion.span
+            initial={{ y: "-100%" }}
+            animate={{ y: "200%" }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute left-0 top-0 h-1/2 w-px bg-white/80"
+          />
         </div>
       </div>
     </section>

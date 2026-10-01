@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -16,7 +15,6 @@ const projects = [
     image: "/projects/realestate/01.png",
     link: "https://avenor-real-estate-tau.vercel.app/",
   },
-
   {
     number: "02",
     title: "LeadPilot",
@@ -25,7 +23,6 @@ const projects = [
       "An AI-powered lead automation system designed to capture, qualify, follow up, and manage business leads with less manual work.",
     image: "/projects/leadpilot/01.png",
   },
-
   {
     number: "03",
     title: "Maison",
@@ -44,16 +41,18 @@ export default function SelectedWork() {
   return (
     <section id="work" className="relative text-white">
       <div className="sticky top-0 z-0 h-screen">
-        <Image
-          src={backgroundImage}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
+        <div className="relative h-full w-full">
+          <Image
+            src={backgroundImage}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
 
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-black/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+        </div>
       </div>
 
       <div className="relative z-10 -mt-[100vh]">
@@ -72,7 +71,7 @@ export default function SelectedWork() {
             <div key={project.number}>
               <Project project={project} index={index} />
 
-              {index !== projects.length - 1 && <div className="h-[70vh]" />}
+              {index !== projects.length - 1 && <div className="h-[50vh]" />}
             </div>
           ))}
         </div>
@@ -170,7 +169,6 @@ function Project({
               className="group mt-8 flex w-fit items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-white/65 transition-colors hover:text-white"
             >
               View project
-
               <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 transition-all group-hover:border-white group-hover:bg-white group-hover:text-black">
                 <ArrowUpRight
                   size={13}
@@ -184,4 +182,3 @@ function Project({
     </article>
   );
 }
-

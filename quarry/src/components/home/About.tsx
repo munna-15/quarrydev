@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 export default function About() {
   return (
     <section id="about" className="bg-white text-[#111827]">
-      <div className="mx-auto max-w-[1800px] px-5 py-24 sm:px-8 sm:py-28 lg:px-10 lg:py-32">
+      <div className="mx-auto max-w-[1800px] px-5 py-11 sm:px-8 sm:py-28 lg:px-10 lg:py-32">
         <div className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
           <motion.div
             initial={{
