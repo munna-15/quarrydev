@@ -8,7 +8,7 @@ export default function SolutionsHero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-black text-white">
       <video
-        src="/videos/solution.mp4"
+        src="/videos/work-hero.mp4"
         autoPlay
         muted
         loop
