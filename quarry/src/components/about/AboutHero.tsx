@@ -15,7 +15,7 @@ export default function AboutHero() {
       <div className="absolute inset-0">
         <div className="absolute inset-[8%_5%_8%_5%] overflow-hidden">
           <video
-            src="/videos/about-hero.mp4"
+            src="/videos/about-hero-final.mp4"
             autoPlay
             muted
             loop

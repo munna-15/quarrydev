@@ -11,7 +11,7 @@ export default function ProcessHero() {
       <div className="absolute inset-0">
         <div className="absolute left-[8%] top-[18%] h-[64%] w-[84%] overflow-visible">
           <video
-            src="/videos/process-hero.mp4"
+            src="/videos/process-hero-final.mp4"
             autoPlay
             muted
             loop

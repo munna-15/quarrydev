@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const videos = ["/videos/work-hero-2.mp4", "/videos/work-hero.mp4"];
+const videos = ["/videos/work-hero-final.mp4", "/videos/work-hero-2-final.mp4"];
 
 export default function WorkHero() {
   const [activeIndex, setActiveIndex] = useState(0);

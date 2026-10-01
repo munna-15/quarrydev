@@ -11,7 +11,7 @@ export default function ContactHero() {
       <div className="absolute inset-0">
         <div className="absolute inset-[8%_5%_8%_5%] overflow-hidden">
           <video
-            src="/videos/contact-hero.mp4"
+            src="/videos/contact-hero-final.mp4"
             autoPlay
             muted
             loop

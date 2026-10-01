@@ -1,37 +1,36 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 
 const videos = [
-  "/videos/hero-web.mp4",
-  "/videos/hero-software.mp4",
-  "/videos/hero-automation.mp4",
-  "/videos/hero-aesthetics.mp4",
-  "/videos/work-hero-1.mp4",
+  "/videos/hero-web-final.mp4",
+  "/videos/hero-software-final.mp4",
+  "/videos/hero-automation-final.mp4",
+  "/videos/hero-aesthetics-final.mp4",
+  "/videos/work-hero-1-final.mp4",
 ];
+
+const SLIDE_DURATION = 3000;
 
 export default function HeroMedia() {
   const [activeIndex, setActiveIndex] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
-    const video = videoRefs.current[activeIndex];
-
-    if (!video) return;
-
-    video.currentTime = 0;
-    video.load();
-    video.play().catch(() => {});
-
-    const timer = window.setTimeout(() => {
+    const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % videos.length);
-    }, 3000);
+    }, SLIDE_DURATION);
 
-    return () => {
-      window.clearTimeout(timer);
-      video.pause();
-    };
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const activeVideo = videoRefs.current[activeIndex];
+
+    if (!activeVideo) return;
+
+    activeVideo.currentTime = 0;
+    activeVideo.play().catch(() => {});
   }, [activeIndex]);
 
   return (
@@ -45,8 +44,8 @@ export default function HeroMedia() {
           src={video}
           muted
           playsInline
-          preload={index === activeIndex ? "auto" : "none"}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+          preload={index === 0 ? "auto" : "metadata"}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
             index === activeIndex ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -58,4 +57,3 @@ export default function HeroMedia() {
     </div>
   );
 }
-
