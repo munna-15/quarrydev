@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 
 import "./globals.css";
+
 import PageTransition from "@/components/layout/PageTransition";
+import FloatingContact from "@/components/layout/FloatingContact";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,6 +32,7 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${inter.variable} ${manrope.variable}`}>
         <PageTransition />
+        <FloatingContact />
         {children}
       </body>
     </html>
