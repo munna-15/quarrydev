@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -120,6 +119,7 @@ export default function Navbar() {
   ) => {
     if (pathname === href) {
       event.preventDefault();
+
       setMenuOpen(false);
 
       window.scrollTo({
@@ -135,11 +135,10 @@ export default function Navbar() {
     startPageTransition(href);
   };
 
-  const handleLogoClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-  ) => {
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/") {
       event.preventDefault();
+
       setMenuOpen(false);
 
       window.scrollTo({
@@ -155,11 +154,10 @@ export default function Navbar() {
     startPageTransition("/");
   };
 
-  const handleStartProject = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-  ) => {
+  const handleStartProject = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/contact") {
       event.preventDefault();
+
       setMenuOpen(false);
 
       window.scrollTo({
@@ -173,6 +171,20 @@ export default function Navbar() {
     event.preventDefault();
     setMenuOpen(false);
     startPageTransition("/contact");
+  };
+
+  const isHome = pathname === "/";
+
+  const isNavActive = (item: (typeof navItems)[number]) => {
+    if (item.href === pathname) {
+      return true;
+    }
+
+    if (isHome && item.section) {
+      return activeSection === item.section;
+    }
+
+    return false;
   };
 
   return (
@@ -193,39 +205,41 @@ export default function Navbar() {
         className="pointer-events-none fixed left-0 right-0 top-0 z-[100] max-w-full"
       >
         <div className="mx-auto flex max-w-[1800px] items-center justify-between px-5 pt-6 sm:px-8 sm:pt-7 lg:px-10 lg:pt-8">
+          {/* Logo */}
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="pointer-events-auto font-[var(--font-manrope)] text-[26px] font-extrabold leading-none tracking-[-0.075em] text-white transition-opacity duration-300 hover:opacity-70 sm:text-[29px]"
+            className="pointer-events-auto flex items-center gap-2 font-[var(--font-manrope)] text-[26px] font-extrabold leading-none tracking-[-0.075em] text-white transition-opacity duration-300 hover:opacity-70 sm:text-[29px]"
           >
-            QUARRY
+            <span>QUARRY</span>
+
+            <span
+              className={`h-1.5 w-1.5 rounded-full bg-white transition-all duration-300 ${
+                isHome ? "scale-100 opacity-100" : "scale-0 opacity-0"
+              }`}
+            />
           </Link>
 
+          {/* Desktop */}
           <div className="hidden items-center gap-12 lg:flex">
             <nav className="pointer-events-auto flex items-center gap-9">
               {navItems.map((item) => {
-                const isActive =
-                  item.section !== null &&
-                  activeSection === item.section;
+                const isActive = isNavActive(item);
 
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    onClick={(event) =>
-                      handleNavigation(event, item.href)
-                    }
+                    onClick={(event) => handleNavigation(event, item.href)}
                     className="group relative flex items-center gap-2 py-2 text-[11px] font-medium uppercase tracking-[0.12em] text-white/60 transition-colors duration-300 hover:text-white"
                   >
+                    <span>{item.label}</span>
+
                     <span
-                      className={`h-1 w-1 rounded-full bg-white transition-all duration-300 ${
-                        isActive
-                          ? "scale-100 opacity-100"
-                          : "scale-0 opacity-0"
+                      className={`h-1.5 w-1.5 rounded-full bg-white transition-all duration-300 ${
+                        isActive ? "scale-100 opacity-100" : "scale-0 opacity-0"
                       }`}
                     />
-
-                    {item.label}
 
                     <span className="absolute bottom-0 left-0 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
                   </Link>
@@ -252,11 +266,10 @@ export default function Navbar() {
             </Link>
           </div>
 
+          {/* Mobile button */}
           <button
             type="button"
-            aria-label={
-              menuOpen ? "Close navigation" : "Open navigation"
-            }
+            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
             className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 hover:border-white hover:bg-white hover:text-black lg:hidden"
@@ -310,21 +323,14 @@ export default function Navbar() {
         </div>
       </motion.header>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.35,
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
             className="fixed inset-0 z-[90] bg-[#050505] lg:hidden"
           >
             <div className="flex h-full flex-col px-6 pb-8 pt-28 sm:px-8">
@@ -339,40 +345,50 @@ export default function Navbar() {
               </div>
 
               <nav className="flex flex-1 flex-col justify-center">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{
-                      opacity: 0,
-                      y: 25,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.06 + index * 0.06,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={(event) =>
-                        handleNavigation(event, item.href)
-                      }
-                      className="group flex items-center justify-between border-b border-white/10 py-5"
-                    >
-                      <span className="font-[var(--font-manrope)] text-[clamp(2.5rem,10vw,4.5rem)] font-medium leading-none tracking-[-0.06em] text-white/90 transition-colors duration-300 group-hover:text-white">
-                        {item.label}
-                      </span>
+                {navItems.map((item, index) => {
+                  const isActive = isNavActive(item);
 
-                      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/35 transition-all duration-300 group-hover:border-white/50 group-hover:bg-white group-hover:text-black">
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </Link>
-                  </motion.div>
-                ))}
+                  return (
+                    <motion.div
+                      key={item.label}
+                      initial={{
+                        opacity: 0,
+                        y: 25,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.06 + index * 0.06,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={(event) => handleNavigation(event, item.href)}
+                        className="group flex items-center justify-between border-b border-white/10 py-5"
+                      >
+                        <span className="flex items-center gap-3 font-[var(--font-manrope)] text-[clamp(2.5rem,10vw,4.5rem)] font-medium leading-none tracking-[-0.06em] text-white/90 transition-colors duration-300 group-hover:text-white">
+                          {item.label}
+
+                          <span
+                            className={`h-2 w-2 rounded-full bg-white transition-all duration-300 ${
+                              isActive
+                                ? "scale-100 opacity-100"
+                                : "scale-0 opacity-0"
+                            }`}
+                          />
+                        </span>
+
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/35 transition-all duration-300 group-hover:border-white/50 group-hover:bg-white group-hover:text-black">
+                          <ArrowUpRight size={15} />
+                        </span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </nav>
 
               <motion.div
@@ -409,4 +425,3 @@ export default function Navbar() {
     </>
   );
 }
-
