@@ -12,9 +12,13 @@ const links = [
 ];
 
 const emailUrl =
-  "mailto:quarrysoftware@gmail.com" +
-  "?subject=Project%20Inquiry%20%E2%80%94%20Quarry" +
-  "&body=Hi%20Quarry%2C%0A%0AI%27m%20interested%20in%20discussing%20a%20project.%20I%27d%20like%20to%20know%20more%20about%20your%20services.%0A%0AThanks.";
+  "https://mail.google.com/mail/?view=cm&fs=1" +
+  "&to=quarrysoftware@gmail.com" +
+  "&su=Project%20Inquiry%20%E2%80%94%20Quarry" +
+  "&body=Hi%20Quarry%2C%0A%0A" +
+  "I%27m%20interested%20in%20discussing%20a%20project.%20" +
+  "I%27d%20like%20to%20know%20more%20about%20your%20services.%0A%0A" +
+  "Thanks.";
 
 export default function Footer() {
   return (
@@ -89,6 +93,8 @@ export default function Footer() {
                 >
                   <a
                     href={emailUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group inline-flex items-center gap-4"
                   >
                     <span className="text-[15px] text-white/75 transition-colors duration-300 group-hover:text-white sm:text-base">
