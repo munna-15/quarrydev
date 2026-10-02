@@ -40,7 +40,8 @@ const backgroundImage =
 export default function SelectedWork() {
   return (
     <section id="work" className="relative text-white">
-      <div className="sticky top-0 z-0 h-screen">
+      {/* Cinematic background */}
+      <div className="sticky top-0 z-0 hidden h-screen md:block">
         <div className="relative h-full w-full">
           <Image
             src={backgroundImage}
@@ -55,8 +56,9 @@ export default function SelectedWork() {
         </div>
       </div>
 
-      <div className="relative z-10 -mt-[100vh]">
-        <header className="mx-auto max-w-[1800px] bg-black px-5 pb-6 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:px-10 lg:pb-8 lg:pt-24">
+      <div className="relative z-10 md:-mt-[100vh]">
+        {/* Header */}
+        <header className="mx-auto max-w-[1800px] bg-black px-5 pb-8 pt-20 sm:px-8 sm:pb-14 sm:pt-24 lg:px-10 lg:pb-8 lg:pt-24">
           <span className="mb-4 block text-[10px] font-medium uppercase tracking-[0.25em] text-white/40">
             Selected Work
           </span>
@@ -71,12 +73,18 @@ export default function SelectedWork() {
             <div key={project.number}>
               <Project project={project} index={index} />
 
-              {index !== projects.length - 1 && <div className="h-[50vh]" />}
+              {index !== projects.length - 1 && (
+                <div className="hidden h-[50vh] bg-black md:block" />
+              )}
+
+              {index !== projects.length - 1 && (
+                <div className="h-12 bg-black sm:h-16 md:hidden" />
+              )}
             </div>
           ))}
         </div>
 
-        <div className="h-[10vh] bg-black" />
+        <div className="h-8 bg-black sm:h-10 md:h-[10vh]" />
       </div>
     </section>
   );
@@ -90,8 +98,9 @@ function Project({
   index: number;
 }) {
   return (
-    <article className="relative min-h-[100vh] bg-black">
-      <div className="mx-auto grid min-h-[100vh] max-w-[1800px] lg:grid-cols-[1.3fr_0.7fr]">
+    <article className="relative bg-black">
+      <div className="mx-auto grid max-w-[1800px] md:min-h-[100vh] lg:grid-cols-[1.3fr_0.7fr]">
+        {/* Project image */}
         <motion.div
           initial={{
             opacity: 0,
@@ -109,18 +118,27 @@ function Project({
             duration: 0.7,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="relative min-h-[65vh] overflow-hidden lg:min-h-[100vh]"
+          className="
+            relative
+            aspect-[4/3]
+            w-full
+            overflow-hidden
+            sm:aspect-[16/10]
+            md:min-h-[100vh]
+            md:aspect-auto
+          "
         >
           <Image
             src={project.image}
             alt={`${project.title} project`}
             fill
             priority={index === 0}
-            sizes="(max-width: 1024px) 100vw, 65vw"
-            className="scale-[1.05] object-contain"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 65vw, 65vw"
+            className="scale-[1.02] object-contain md:scale-[1.05]"
           />
         </motion.div>
 
+        {/* Project information */}
         <motion.div
           initial={{
             opacity: 0,
@@ -139,9 +157,24 @@ function Project({
             delay: 0.08,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="flex min-h-[35vh] flex-col justify-center px-7 py-12 sm:px-10 lg:min-h-[100vh] lg:px-12 xl:px-16"
+          className="
+            flex
+            flex-col
+            justify-center
+            px-5
+            pb-2
+            pt-7
+            sm:px-8
+            sm:pb-4
+            sm:pt-9
+            md:min-h-[100vh]
+            md:px-10
+            md:py-12
+            lg:px-12
+            xl:px-16
+          "
         >
-          <div className="mb-6 flex items-center gap-3">
+          <div className="mb-5 flex items-center gap-3 sm:mb-6">
             <span className="text-[10px] uppercase tracking-[0.22em] text-white/40">
               {project.number}
             </span>
@@ -153,11 +186,11 @@ function Project({
             </span>
           </div>
 
-          <h3 className="font-[var(--font-manrope)] text-4xl font-medium leading-[0.95] tracking-[-0.055em] sm:text-5xl lg:text-[4rem]">
+          <h3 className="font-[var(--font-manrope)] text-3xl font-medium leading-[0.95] tracking-[-0.055em] sm:text-4xl md:text-5xl lg:text-[4rem]">
             {project.title}
           </h3>
 
-          <p className="mt-6 max-w-sm text-sm leading-6 text-white/50">
+          <p className="mt-5 max-w-sm text-[13px] leading-6 text-white/50 sm:mt-6 sm:text-sm">
             {project.description}
           </p>
 
@@ -166,7 +199,7 @@ function Project({
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 flex w-fit items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-white/65 transition-colors hover:text-white"
+              className="group mt-7 flex w-fit items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-white/65 transition-colors hover:text-white sm:mt-8"
             >
               View project
               <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 transition-all group-hover:border-white group-hover:bg-white group-hover:text-black">
