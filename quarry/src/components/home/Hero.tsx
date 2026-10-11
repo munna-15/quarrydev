@@ -1,30 +1,25 @@
-
 import HeroMedia from "./HeroMedia";
 
 export default function Hero() {
   return (
-    <section className="relative h-full overflow-hidden bg-[#111827]">
-      <HeroMedia />
+    <section className="relative h-screen overflow-hidden bg-red-500">
+      <div className="relative mx-auto flex h-full max-w-[1800px] flex-col px-4 pt-24 sm:px-6 lg:px-8">
+        <div className="relative h-[60vh] shrink-0 overflow-hidden bg-green-500">
+          <HeroMedia />
 
-      <div className="relative mx-auto flex h-full max-w-[1600px] items-end px-5 pb-8 sm:px-8 lg:px-12 lg:pb-12">
-        <div className="flex w-full items-end justify-between gap-8">
-          <div>
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-white/50">
-              Software Engineering · Web · AI · Automation
-            </p>
-
-            <h2 className="max-w-[700px] font-[var(--font-manrope)] text-[clamp(32px,4.5vw,68px)] font-semibold leading-[0.94] tracking-[-0.06em] text-white">
-              We build what’s next.
-            </h2>
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <h1 className="text-6xl font-bold text-white">HERO TEST</h1>
           </div>
+        </div>
 
-          <p className="hidden max-w-[280px] text-right text-[11px] leading-5 text-white/45 sm:block">
-            Digital experiences, software, AI systems and automation for
-            ambitious businesses.
-          </p>
+        <div className="grid flex-1 grid-cols-3 bg-yellow-500">
+          <div className="border-r border-black p-8 text-black">CARD 01</div>
+
+          <div className="border-r border-black p-8 text-black">CARD 02</div>
+
+          <div className="p-8 text-black">CARD 03</div>
         </div>
       </div>
     </section>
   );
 }
-

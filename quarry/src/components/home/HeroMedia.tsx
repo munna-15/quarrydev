@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const videos = [
-  "/videos/hero-web-final.mp4",
-  "/videos/hero-software-final.mp4",
   "/videos/hero-automation-final.mp4",
   "/videos/hero-aesthetics-final.mp4",
+  "/videos/hero-web-final.mp4",
+  "/videos/hero-software-final.mp4",
   "/videos/work-hero-1-final.mp4",
 ];
 
@@ -14,6 +14,7 @@ const SLIDE_DURATION = 3000;
 
 export default function HeroMedia() {
   const [activeIndex, setActiveIndex] = useState(0);
+
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
@@ -30,11 +31,12 @@ export default function HeroMedia() {
     if (!activeVideo) return;
 
     activeVideo.currentTime = 0;
+
     activeVideo.play().catch(() => {});
   }, [activeIndex]);
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+    <div className="absolute inset-0 overflow-hidden bg-black">
       {videos.map((video, index) => (
         <video
           key={video}
@@ -45,15 +47,17 @@ export default function HeroMedia() {
           muted
           playsInline
           preload={index === 0 ? "auto" : "metadata"}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
             index === activeIndex ? "opacity-100" : "opacity-0"
           }`}
         />
       ))}
 
+      {/* Overall contrast */}
       <div className="absolute inset-0 bg-black/25" />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40" />
+      {/* Bottom depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/45" />
     </div>
   );
 }
