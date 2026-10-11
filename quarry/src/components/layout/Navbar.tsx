@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
 
@@ -60,6 +61,7 @@ export default function Navbar() {
     mobileOpenRef.current = mobileOpen;
   }, [mobileOpen]);
 
+  // Navbar scroll behavior
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let ticking = false;
@@ -103,6 +105,7 @@ export default function Navbar() {
     };
   }, []);
 
+  // Lock background scrolling while mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
 
@@ -111,6 +114,24 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
+  // Close menus after route changes or Escape
+  // useEffect(() => {
+  //   closeMenus();
+  // }, [pathname, closeMenus]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMenus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeMenus]);
 
   const handleNavigation = (
     event: MouseEvent<HTMLAnchorElement>,
@@ -182,7 +203,6 @@ export default function Navbar() {
 
   return (
     <>
-    
       <motion.header
         initial={false}
         animate={{
@@ -200,6 +220,7 @@ export default function Navbar() {
         }`}
       >
         <nav
+          aria-label="Main navigation"
           className={`mx-auto flex h-[88px] max-w-[1440px] items-center justify-between px-4 transition-colors duration-300 sm:px-6 lg:px-8 ${
             scrolled ? "bg-[#f7f6f1]" : "bg-transparent"
           }`}
@@ -208,17 +229,20 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="group relative z-[110] flex shrink-0 items-center"
+            aria-label="Quarry Software — Home"
+            className="group relative z-[110] -ml-12 flex shrink-0 items-center sm:-ml-14 lg:-ml-18"
           >
-            <span
-              className={`text-[20px] font-semibold tracking-[0.12em] transition-colors duration-300 sm:text-[21px] ${
-                scrolled
-                  ? "text-[#20231f] group-hover:text-[#596c54]"
-                  : "text-white group-hover:text-white/75"
+            <Image
+              src="/images/quarry/logo.png"
+              alt="Quarry Software"
+              width={380}
+              height={240}
+              priority
+              sizes="240px"
+              className={`h-[140px] w-auto max-w-none object-contain transition-[filter,opacity] duration-300 sm:h-[160px] lg:h-[180px] ${
+                scrolled ? "brightness-100" : "brightness-0 invert"
               }`}
-            >
-              QUARRY
-            </span>
+            />
           </Link>
 
           {/* Desktop navigation */}
@@ -234,7 +258,8 @@ export default function Navbar() {
                   type="button"
                   onClick={() => toggleDropdown("company")}
                   aria-expanded={openDropdown === "company"}
-                  className={`group flex h-11 items-center gap-1.5 px-4 text-[14px] font-medium tracking-[0.01em] transition-colors duration-300 ${navMuted}`}
+                  aria-haspopup="true"
+                  className={`flex h-11 items-center gap-1.5 px-4 text-[14px] font-medium tracking-[0.01em] transition-colors duration-300 ${navMuted}`}
                 >
                   Company
                   <ChevronDown
@@ -250,6 +275,7 @@ export default function Navbar() {
                   {openDropdown === "company" && (
                     <Dropdown>
                       <DropdownLabel label="Company" />
+
                       {companyLinks.map((item) => (
                         <DropdownLink
                           key={item.href}
@@ -272,7 +298,8 @@ export default function Navbar() {
                   type="button"
                   onClick={() => toggleDropdown("services")}
                   aria-expanded={openDropdown === "services"}
-                  className={`group flex h-11 items-center gap-1.5 px-4 text-[14px] font-medium tracking-[0.01em] transition-colors duration-300 ${navMuted}`}
+                  aria-haspopup="true"
+                  className={`flex h-11 items-center gap-1.5 px-4 text-[14px] font-medium tracking-[0.01em] transition-colors duration-300 ${navMuted}`}
                 >
                   Services
                   <ChevronDown
@@ -288,6 +315,7 @@ export default function Navbar() {
                   {openDropdown === "services" && (
                     <Dropdown wide>
                       <DropdownLabel label="What we build" />
+
                       <div className="space-y-0.5">
                         {serviceLinks.map((item) => (
                           <Link
@@ -302,6 +330,7 @@ export default function Navbar() {
                               <span className="block text-[14px] font-medium leading-tight text-white/90 transition-colors group-hover:text-white">
                                 {item.label}
                               </span>
+
                               <span className="mt-1 block text-[11px] leading-tight text-white/45 transition-colors group-hover:text-white/65">
                                 {item.description}
                               </span>
@@ -350,12 +379,13 @@ export default function Navbar() {
             type="button"
             aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={mobileOpen}
+            aria-controls="quarry-mobile-navigation"
             onClick={() => {
               setMobileOpen((current) => !current);
               setMobileSection(null);
               setOpenDropdown(null);
             }}
-            className={`relative z-[110] flex h-10 w-10 items-center justify-center transition-colors duration-300 lg:hidden ${navText}`}
+            className={`relative z-[110] flex h-10 w-10 shrink-0 items-center justify-center transition-colors duration-300 lg:hidden ${navText}`}
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
@@ -381,11 +411,12 @@ export default function Navbar() {
           </button>
         </nav>
       </motion.header>
- 
-      {/* Mobile navigation overlay */}
+
+      {/* Mobile navigation */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="quarry-mobile-navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -427,6 +458,7 @@ export default function Navbar() {
                         <span className="block text-base font-medium text-white/90">
                           {item.label}
                         </span>
+
                         <span className="mt-1 block text-xs text-white/45">
                           {item.description}
                         </span>
@@ -458,6 +490,7 @@ export default function Navbar() {
                 </Link>
               </div>
 
+              {/* Mobile Webserver CTA */}
               <div className="pt-7">
                 <Link
                   href="/web-server"
@@ -480,6 +513,7 @@ export default function Navbar() {
   );
 }
 
+/* Desktop dropdown */
 function Dropdown({
   children,
   wide = false,
