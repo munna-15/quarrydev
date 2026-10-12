@@ -103,28 +103,31 @@ export default function CaseStudiesPage() {
       <Navbar />
 
       {/* Hero: original image colors, no overlay */}
-      <section className="relative flex h-[30vh] min-h-[220px] items-end overflow-hidden bg-neutral-200">
-        <Image
-          src="/images/service/ai.jpg"
-          alt="Quarry selected work"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-
-        <div className="relative z-10 mx-auto flex w-full max-w-[1240px] items-end justify-between px-5 pb-7 sm:px-8 md:pb-9">
-          <div>
-            <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.28em] text-white sm:text-xs">
-              Quarry / Selected Work
-            </p>
-
-            <h1 className="text-3xl font-medium tracking-[-0.045em] text-white sm:text-4xl md:text-5xl">
-              Case Studies
-            </h1>
-          </div>
-        </div>
-      </section>
+      <section className="relative flex h-[30vh] min-h-[240px] items-end overflow-hidden bg-[#17232d]">
+              <Image
+                src="/images/service/ai.jpg"
+                alt="Modern server infrastructure"
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+      
+              <div className="absolute inset-0 bg-black/50" />
+      
+              <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-8 md:px-12">
+                <p className="mb-3 text-xs uppercase tracking-[0.25em] text-white/70">
+                  Quarry / Selected Work
+                </p>
+      
+                <h1 className="max-w-3xl text-3xl font-medium tracking-tight text-white md:text-5xl">
+                  Case Studies
+                </h1>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-white/80 md:text-base">
+                  Reliable infrastructure for modern digital products.
+                </p>
+              </div>
+            </section>
 
       {/* Projects */}
       <section

@@ -97,56 +97,31 @@ export default function WebDevelopmentPage() {
     <main className="min-h-screen overflow-hidden bg-[#F5F2EA] text-[#292C25]">
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative flex h-[60svh] min-h-[420px] max-h-[560px] flex-col justify-end overflow-hidden bg-[#292C25]">
+      <section className="relative flex h-[30vh] min-h-[240px] items-end overflow-hidden bg-[#17232d]">
         <Image
           src="/images/service/ai.jpg"
-          alt="Digital experience and website design"
+          alt="Modern server infrastructure"
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
-       
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-8 pt-24 sm:px-8 sm:pb-10 sm:pt-28 lg:px-16 lg:pb-12 lg:pt-32"
-        >
-          <div className="mb-4 flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-[#D4DEC9] sm:mb-5 sm:text-xs">
-            <span className="h-px w-7 bg-[#D4DEC9] sm:w-10" />
-            Web Development
-          </div>
 
-          <h1 className="max-w-4xl text-[clamp(2.25rem,5.2vw,4.5rem)] font-medium leading-[1.02] tracking-[-0.055em] text-white">
-            Digital experiences
-            <span className="block text-[#D4DEC9]">built with purpose.</span>
+        <div className="absolute inset-0 bg-black/50" />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-8 md:px-12">
+          <p className="mb-3 text-xs uppercase tracking-[0.25em] text-white/70">
+            Quarry / Development
+          </p>
+
+          <h1 className="max-w-3xl text-3xl font-medium tracking-tight text-white md:text-5xl">
+            Web Development 
           </h1>
 
-          <div className="mt-6 flex flex-col gap-5 border-t border-white/30 pt-5 sm:mt-7 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:pt-6">
-            <p className="max-w-xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">
-              We build purposeful websites and web applications that help
-              businesses connect with customers and grow.
-            </p>
-
-            <a
-              href="#web-services"
-              className="group inline-flex w-fit shrink-0 items-center gap-3 border-b border-white/60 pb-2 text-sm font-medium text-white transition-colors hover:border-[#D4DEC9] hover:text-[#D4DEC9]"
-            >
-              Explore services
-              <ArrowDown
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-y-1"
-              />
-            </a>
-          </div>
-        </motion.div>
-      
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/80 md:text-base">
+            Reliable infrastructure for modern digital products.
+          </p>
+        </div>
       </section>
 
       {/* Introduction */}
@@ -337,7 +312,7 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
     </main>
   );
 }
